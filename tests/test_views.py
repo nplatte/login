@@ -15,6 +15,10 @@ class TestLogin(TestCase):
         response = self.client.post(reverse('login'), data)
         self.assertEqual(response.status_code, 302)
 
+    def test_good_login_redirect_to_landing(self):
+        data = {'username': "TestUser1", 'password': 'thisiscorrect'}
+        response = self.client.post(reverse('login'), data)
+        self.assertRedirects(response, reverse('landing'))
 
     def test_user_login_fail(self):
         data = {'username': "TestUser1", 'password': 'thisiswrong'}
